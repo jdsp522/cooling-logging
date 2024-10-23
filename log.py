@@ -1,13 +1,16 @@
 import serial
 from datetime import datetime
+import sys
 
 def log(fp, port):
     with open(fp, "w") as f:
-        f.write("Time (s),Pitot Tube (V),3V3 Supply (V, unused)\n")
+        f.write("Time (s),Pitot Tube (V),Unused (V)\n")
 
-        with serial.Serial(port, 115200) as ser:
+        with serial.Serial(port, 230400) as ser:
+            while ser.in_waiting > 0:
+                ser.readline()
+            # line = ser.readline().decode()
             ser.reset_input_buffer()
-            line = ser.readline().decode()
             line = ser.readline().decode()
             start = datetime.now()
 
@@ -30,7 +33,7 @@ def time_since_start(start: datetime):
     return f"{delta.seconds}.{delta.microseconds:06}"
 
 if __name__ == "__main__":
-    fp = input("Output file name: ")
-    port = input("Serial port: ")
+    fp = sys.argv[2]
+    port = sys.argv[1]
 
     log(fp, port)
