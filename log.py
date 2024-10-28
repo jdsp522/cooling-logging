@@ -4,7 +4,7 @@ import sys
 
 def log(fp, port):
     with open(fp, "w") as f:
-        f.write("Time (s),Pitot Tube (V),Unused (V)\n")
+        f.write("Time (s),Thermistor A (V),Thermistor B (V)\n")
 
         with serial.Serial(port, 230400) as ser:
             while ser.in_waiting > 0:

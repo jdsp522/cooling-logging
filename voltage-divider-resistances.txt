@@ -1,0 +1,2 @@
+Thermistor A - Autosport - 10.01kOhm
+Thermistor B - not that - 10.06kOhm
